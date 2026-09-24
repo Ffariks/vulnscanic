@@ -1,34 +1,35 @@
 # vulnscanic
 
-Сервис отслеживания уязвимостей в зависимостях проекта.
+A dependency vulnerability scanner.
 
-Принимает файл зависимостей (`pom.xml`, `package-lock.json`), сверяет
-библиотеки и их версии с базой известных уязвимостей [OSV.dev](https://osv.dev/)
-и показывает, что уязвимо, насколько критично и до какой версии обновляться.
+Takes a dependency manifest (`pom.xml`, `package-lock.json`), matches the
+libraries and their versions against the [OSV.dev](https://osv.dev/) database
+of known vulnerabilities, and reports what is affected, how severe it is, and
+which version fixes it.
 
-## Статус
+## Status
 
-В разработке. Этап: базовая модель предметной области.
+In development. Current stage: core domain model.
 
-## Стек
+## Stack
 
 - Java 21
 - Maven
 - JUnit 5
 
-Дальше по плану: Spring Boot, PostgreSQL, Docker, React, AWS.
+Planned: Spring Boot, PostgreSQL, Docker, React, AWS.
 
-## Запуск
+## Running
 
 ```bash
 mvn clean test
 ```
 
-## Структура
+## Structure
 
 ```
 src/main/java/com/farik/vulnscanic/
-├── model/      — модели предметной области
-├── service/    — бизнес-логика
-└── exception/  — свои исключения
+├── model/      — domain models
+├── service/    — business logic
+└── exception/  — custom exceptions
 ```
