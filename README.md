@@ -9,7 +9,8 @@ which version fixes it.
 
 ## Status
 
-In development. Current stage: core domain model.
+In development. Completed: domain model, ScanService with Stream API queries.
+Next: PostgreSQL persistence.
 
 ## Stack
 
