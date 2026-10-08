@@ -41,3 +41,30 @@ SELECT dependencies.name, COUNT(vulnerability_id) AS vulnerability_count
 FROM dependencies
 LEFT JOIN dependency_vulnerabilities ON dependencies.id = dependency_vulnerabilities.dependency_id
 GROUP BY dependencies.id;
+
+SELECT dependencies.name, dependencies.version,
+MAX(CASE severity
+WHEN 'CRITICAL' THEN 4
+WHEN 'HIGH' THEN 3
+WHEN 'MEDIUM' THEN 2
+WHEN 'LOW' THEN 1
+END) AS worst_severity, 
+COUNT(vulnerability_id) AS vulnerability_count
+FROM dependencies
+JOIN dependency_vulnerabilities ON dependencies.id = dependency_vulnerabilities.dependency_id
+JOIN vulnerabilities ON vulnerabilities.id = dependency_vulnerabilities.vulnerability_id
+GROUP BY dependencies.id
+ORDER BY worst_severity DESC, vulnerability_count DESC
+LIMIT 3;
+
+SELECT dependencies.name, dependencies.version, vulnerabilities.osv_id, vulnerabilities.severity, vulnerabilities.fixed_version,
+CASE severity
+WHEN 'CRITICAL' THEN 4
+WHEN 'HIGH' THEN 3
+WHEN 'MEDIUM' THEN 2
+WHEN 'LOW' THEN 1
+END AS worst_severity
+FROM dependencies
+JOIN dependency_vulnerabilities ON dependencies.id = dependency_vulnerabilities.dependency_id
+JOIN vulnerabilities ON vulnerabilities.id = dependency_vulnerabilities.vulnerability_id
+ORDER BY worst_severity DESC;
